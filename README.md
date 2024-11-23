@@ -1,93 +1,136 @@
 # Praktikum 6
 ## Hasil Input 
 ```python
-def tampilkan_menu():
-    print("\n[(L)ihat, (T)ambah, (U)bah, (H)apus, (C)ari, (K)eluar]:")
+data_mahasiswa = {}
 
-def tampilkan_daftar_nilai(daftar_nilai):
-    if not daftar_nilai:
+def lihat_data():
+    if not data_mahasiswa:
         print("Daftar Nilai")
-        print("=" * 66)
-        print("| NO |    NIM    |     NAMA      | TUGAS  | UTS  | UAS  | AKHIR  |")
-        print("=" * 66)
-        print("|                       TIDAK ADA DATA                           |")
-        print("=" * 66)
-    else:
-        print("Daftar Nilai")
-        print("=" * 66)
-        print("| NO |    NIM    |     NAMA      | TUGAS  | UTS  | UAS  | AKHIR  |")
-        print("=" * 66)
-        for i, data in enumerate(daftar_nilai, start=1):
-            print(f"| {i:<2} | {data[0]:<8} | {data[1]:<13} | {data[2]:<6} | {data[3]:<4} | {data[4]:<4} | {data[5]:<6.2f} |")
-        print("=" * 66)
+        print("=" * 81)
+        print(f"{'No'.center(5)}|{'Nama'.center(15)}|{'NIM'.center(10)}|{'Nilai Tugas'.center(13)}|{'Nilai UTS'.center(10)}|{'Nilai UAS'.center(10)}|{'Nilai Akhir'.center(10)}|")
+        print("=" * 81)
+        print(f"{'TIDAK ADA DATA'.center(75)}")
+        print("=" * 81)
+        return
+    print("Daftar Nilai")
+    print("=" * 81)
+    print(f"{'No'.center(5)}|{'Nama'.center(15)}|{'NIM'.center(10)}|{'Nilai Tugas'.center(13)}|{'Nilai UTS'.center(10)}|{'Nilai UAS'.center(10)}|{'Nilai Akhir'.center(10)}|")
+    print("=" * 81)
+    for i, (nim, mhs) in enumerate(data_mahasiswa.items(), start=1):
+        print(f"{str(i).center(5)}|{mhs['nama'].ljust(15)}|{nim.center(10)}|{str(mhs['tugas']).center(13)}|{str(mhs['uts']).center(10)}|{str(mhs['uas']).center(10)}|{format(mhs['nilai_akhir'], '.2f').center(10)} |")
+    print("=" * 81)
 
-def tambah_data(daftar_nilai):
-    print("Tambahkan Data")
+def tambah_data():
+    print("Tambah Data")
     nim = input("NIM: ")
+    if nim in data_mahasiswa:
+        print("Data dengan NIM tersebut sudah ada!")
+        return
     nama = input("Nama: ")
     tugas = float(input("Nilai Tugas: "))
     uts = float(input("Nilai UTS: "))
     uas = float(input("Nilai UAS: "))
-    nilai_akhir = (tugas + uts + uas) / 3
-    daftar_nilai.append([nim, nama, tugas, uts, uas, nilai_akhir])
-    print("Data berhasil ditambahkan.")
+    nilai_akhir = (tugas * 0.3) + (uts * 0.35) + (uas * 0.35)
 
-def ubah_data(daftar_nilai):
-    tampilkan_daftar_nilai(daftar_nilai)
-    index = int(input("Pilih nomor data yang ingin diubah: ")) - 1
-    if 0 <= index < len(daftar_nilai):
-        nim = input("NIM baru: ")
-        nama = input("Nama baru: ")
-        tugas = float(input("Nilai Tugas baru: "))
-        uts = float(input("Nilai UTS baru: "))
-        uas = float(input("Nilai UAS baru: "))
-        nilai_akhir = (tugas + uts + uas) / 3
-        daftar_nilai[index] = [nim, nama, tugas, uts, uas, nilai_akhir]
-        print("Data berhasil diubah.")
+    data_mahasiswa[nim] = {
+        "nama": nama,
+        "tugas": tugas,
+        "uts": uts,
+        "uas": uas,
+        "nilai_akhir": nilai_akhir
+    }
+    print("Data berhasil ditambahkan!")
+
+def ubah_data():
+    lihat_data()
+    if not data_mahasiswa:
+        return
+    
+    nim = input("Masukkan NIM data yang akan diubah: ")
+    if nim in data_mahasiswa:
+        print("Masukkan Data Baru")
+        nama = input("Nama: ")
+        tugas = float(input("Nilai Tugas: "))
+        uts = float(input("Nilai UTS: "))
+        uas = float(input("Nilai UAS: "))
+        nilai_akhir = (tugas * 0.3) + (uts * 0.35) + (uas * 0.35)
+
+        data_mahasiswa[nim] = {
+            "nama": nama,
+            "tugas": tugas,
+            "uts": uts,
+            "uas": uas,
+            "nilai_akhir": nilai_akhir
+        }
+        print("Data berhasil diubah!")
     else:
-        print("Nomor tidak valid.")
+        print("NIM tidak ditemukan!")
 
-def hapus_data(daftar_nilai):
-    tampilkan_daftar_nilai(daftar_nilai)
-    index = int(input("Pilih nomor data yang ingin dihapus: ")) - 1
-    if 0 <= index < len(daftar_nilai):
-        daftar_nilai.pop(index)
-        print("Data berhasil dihapus.")
+def hapus_data():
+    lihat_data()
+    if not data_mahasiswa:
+        return
+
+    nim = input("Masukkan NIM data yang akan dihapus: ")
+    if nim in data_mahasiswa:
+        del data_mahasiswa[nim]
+        print("Data berhasil dihapus!")
     else:
-        print("Nomor tidak valid.")
+        print("NIM tidak ditemukan!")
 
-def cari_data(daftar_nilai):
-    nim = input("Masukkan NIM yang dicari: ")
-    ditemukan = False
-    for data in daftar_nilai:
-        if data[0] == nim:
-            print(f"Data ditemukan: NIM: {data[0]}, Nama: {data[1]}, Tugas: {data[2]}, UTS: {data[3]}, UAS: {data[4]}, Akhir: {data[5]:.2f}")
-            ditemukan = True
-            break
-    if not ditemukan:
+def cari_data():
+    keyword = input("Masukkan nama atau NIM yang ingin dicari: ")
+    hasil_cari = {nim: mhs for nim, mhs in data_mahasiswa.items() if keyword.lower() in mhs['nama'].lower() or keyword in nim}
+    
+    if hasil_cari:
+        print("Hasil Pencarian:")
+        print("=" * 81)
+        print(f"{'No'.center(5)}|{'Nama'.center(15)}|{'NIM'.center(10)}|{'Nilai Tugas'.center(13)}|{'Nilai UTS'.center(10)}|{'Nilai UAS'.center(10)}|{'Nilai Akhir'.center(10)}|")
+        print("=" * 81)
+        for i, (nim, mhs) in enumerate(hasil_cari.items(), start=1):
+            print(f"{str(i).center(5)}|{mhs['nama'].ljust(15)}|{nim.center(10)}|{str(mhs['tugas']).center(13)}|{str(mhs['uts']).center(10)}|{str(mhs['uas']).center(10)}|{format(mhs['nilai_akhir'], '.2f').center(10)}|")
+        print("=" * 81)
+    else:
         print("Data tidak ditemukan.")
 
-if __name__ == "__main__":
-    daftar_nilai = []
-    while True:
-        tampilkan_menu()
-        pilihan = input().lower()
-
-        if pilihan == 'l':
-            tampilkan_daftar_nilai(daftar_nilai)
-        elif pilihan == 't':
-            tambah_data(daftar_nilai)
-        elif pilihan == 'u':
-            ubah_data(daftar_nilai)
-        elif pilihan == 'h':
-            hapus_data(daftar_nilai)
-        elif pilihan == 'c':
-            cari_data(daftar_nilai)
-        elif pilihan == 'k':
-            print("Keluar dari program.")
-            break
-        else:
-            print("Pilihan tidak valid")
+while True:
+    pilihan = input("[(L)ihat (T)ambah (U)bah (H)apus (C)ari (K)eluar] : ").lower()
+    if pilihan == 't':
+        tambah_data()
+    elif pilihan == 'u':
+        ubah_data()
+    elif pilihan == 'h':
+        hapus_data()
+    elif pilihan == 'l':
+        lihat_data()
+    elif pilihan == 'c':
+        cari_data()
+    elif pilihan == 'k':
+        print("Program selesai.")
+        break
+    else:
+        print("Pilihan tidak valid!")
 ```
 
 # Hasil Output
+````markdown
+[(L)ihat (T)ambah (U)bah (H)apus (C)ari (K)eluar] : t
+Tambah Data
+NIM: 312410015
+Nama: Aldi Rismandayana
+Nilai Tugas: 89
+Nilai UTS: 89
+Nilai UAS: 90
+Data berhasil ditambahkan!
+[(L)ihat (T)ambah (U)bah (H)apus (C)ari (K)eluar] : l
+Daftar Nilai
+=================================================================================
+  No |      Nama     |   NIM    | Nilai Tugas |Nilai UTS |Nilai UAS |Nilai Akhir|
+=================================================================================
+  1  |Aldi Rismandayana|312410015 |     89.0    |   89.0   |   90.0   |  89.35    |
+=================================================================================
+[(L)ihat (T)ambah (U)bah (H)apus (C)ari (K)eluar] : k
+Program selesai.
+````
+
+# Penjelasan Program 
