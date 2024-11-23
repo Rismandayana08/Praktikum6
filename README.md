@@ -132,7 +132,8 @@ Daftar Nilai
 [(L)ihat (T)ambah (U)bah (H)apus (C)ari (K)eluar] : k
 Program selesai.
 ````
-
+# Flowchart
+ ![Flowchart](/flowchart.png)
 # Penjelasan Program
 Kode Python di atas dirancang untuk mengelola data mahasiswa dalam bentuk kamus (dictionary). Setiap entri dalam kamus mewakili satu mahasiswa dengan NIM sebagai kunci dan informasi lainnya (nama, nilai tugas, UTS, UAS, dan nilai akhir) sebagai nilai.
 
