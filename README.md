@@ -1,4 +1,8 @@
 # Praktikum 6
+## NAMA     : ALDI RISMANDAYANA
+## KELAS    : TI.24.A1
+## NIM      : 312410015
+
 ## Hasil Input 
 ```python
 data_mahasiswa = {}
