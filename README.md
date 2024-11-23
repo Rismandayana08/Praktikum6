@@ -133,4 +133,66 @@ Daftar Nilai
 Program selesai.
 ````
 
-# Penjelasan Program 
+# Penjelasan Program
+Kode Python di atas dirancang untuk mengelola data mahasiswa dalam bentuk kamus (dictionary). Setiap entri dalam kamus mewakili satu mahasiswa dengan NIM sebagai kunci dan informasi lainnya (nama, nilai tugas, UTS, UAS, dan nilai akhir) sebagai nilai.
+
+Pemahaman Fungsi-Fungsi Utama
+lihat_data():
+
+Fungsi ini menampilkan daftar seluruh data mahasiswa yang sudah tersimpan.
+Jika belum ada data, akan ditampilkan pesan "TIDAK ADA DATA".
+Format tampilan data dibuat rapi dengan menggunakan pemisah garis dan penjajaran kolom.
+tambah_data():
+
+Fungsi ini menambahkan data mahasiswa baru.
+User diminta memasukkan NIM, nama, nilai tugas, UTS, dan UAS.
+Nilai akhir dihitung berdasarkan bobot masing-masing komponen nilai.
+Data baru kemudian ditambahkan ke dalam kamus data_mahasiswa.
+ubah_data():
+
+Fungsi ini mengupdate data mahasiswa yang sudah ada.
+User diminta memasukkan NIM mahasiswa yang ingin diubah.
+Jika NIM ditemukan, user akan diminta memasukkan data baru untuk mengganti data yang lama.
+hapus_data():
+
+Fungsi ini menghapus data mahasiswa berdasarkan NIM.
+User diminta memasukkan NIM mahasiswa yang ingin dihapus.
+Jika NIM ditemukan, data tersebut akan dihapus dari kamus.
+cari_data():
+
+Fungsi ini mencari data mahasiswa berdasarkan nama atau NIM.
+User diminta memasukkan kata kunci yang ingin dicari.
+Hasil pencarian akan ditampilkan dalam format yang sama seperti fungsi lihat_data().
+Struktur Data
+data_mahasiswa: Ini adalah kamus utama yang menyimpan seluruh data mahasiswa.
+Setiap entri dalam kamus: Mempunyai struktur sebagai berikut:
+```Python
+{
+    "NIM": {
+        "nama": "Nama Mahasiswa",
+        "tugas": nilai_tugas,
+        "uts": nilai_uts,
+        "uas": nilai_uas,
+        "nilai_akhir": nilai_akhir
+    }
+}
+```
+Gunakan kode dengan hati-hati.
+
+# Alur Kerja Program
+Program dimulai dengan mendefinisikan fungsi-fungsi yang dibutuhkan.
+Kemudian, program masuk ke dalam loop while True untuk terus meminta input dari pengguna.
+Pengguna diminta memilih aksi yang ingin dilakukan (lihat, tambah, ubah, hapus, cari, atau keluar).
+Berdasarkan pilihan pengguna, fungsi yang sesuai akan dipanggil dan menjalankan tugasnya.
+Loop akan terus berulang sampai pengguna memilih opsi "keluar".
+## A. Kelebihan Kode
+- Terstruktur: Kode terbagi menjadi fungsi-fungsi yang jelas, memudahkan pemahaman dan modifikasi.
+- Fleksibel: Dapat digunakan untuk mengelola data mahasiswa dalam jumlah yang banyak.
+- User-friendly: Tampilan output yang rapi dan mudah dibaca.
+- Komprehensif: Mencakup fitur-fitur dasar untuk manajemen data mahasiswa, seperti tambah, ubah, hapus, dan cari.
+## B. Potensi Pengembangan
+- Validasi input: Menambahkan validasi input untuk memastikan data yang dimasukkan oleh pengguna sesuai dengan tipe data yang diharapkan (misalnya, NIM harus berupa angka).
+- Penyimpanan data: Menyimpan data ke dalam file (misalnya, CSV atau JSON) agar data tidak hilang ketika program dijalankan ulang.
+- Fitur tambahan: Menambahkan fitur-fitur lain seperti mengurutkan data berdasarkan nilai akhir, mencari mahasiswa dengan nilai tertentu, atau menghasilkan laporan.
+- Antarmuka pengguna: Membuat antarmuka pengguna yang lebih interaktif menggunakan library seperti Tkinter atau PyQt.
+
